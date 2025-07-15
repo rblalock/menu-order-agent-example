@@ -69,6 +69,9 @@ export default async function Agent(
               .optional()
               .describe("Customer requested modifications"),
           }),
+          execute: async ({ name, price, description, category, modifications }) => {
+            return { name, price, description, category, modifications };
+          },
         }),
 
         confirmOrder: tool({
@@ -87,6 +90,9 @@ export default async function Agent(
             total: z.number(),
             tableNumber: z.number().default(Math.floor(Math.random() * 20) + 1),
           }),
+          execute: async ({ items, subtotal, tax, total, tableNumber }) => {
+            return { items, subtotal, tax, total, tableNumber };
+          },
         }),
 
         addToCart: tool({
@@ -97,6 +103,9 @@ export default async function Agent(
             quantity: z.number().default(1),
             modifications: z.array(z.string()).optional(),
           }),
+          execute: async ({ name, price, quantity, modifications }) => {
+            return { name, price, quantity, modifications };
+          },
         }),
       },
     });
