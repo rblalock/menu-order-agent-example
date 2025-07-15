@@ -76,15 +76,29 @@ function renderToolResult(toolInvocation: any) {
   switch (toolName) {
     case "showItem":
       return (
-        <div className="bg-white rounded-lg p-3 text-gray-900 border border-gray-200">
-          <h4 className="font-semibold">{result.name}</h4>
-          <p className="text-sm text-gray-600">${result.price.toFixed(2)}</p>
-          {result.description && (
-            <p className="text-sm mt-1">{result.description}</p>
-          )}
-          {result.category && (
-            <p className="text-xs text-gray-500 mt-1">{result.category}</p>
-          )}
+        <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
+          <img 
+            src="https://via.placeholder.com/400x200/f3f4f6/9ca3af?text=Menu+Item"
+            alt={result.name}
+            className="w-full h-32 object-cover"
+          />
+          <div className="p-4">
+            <h4 className="font-semibold text-lg">{result.name}</h4>
+            <p className="text-xl font-bold text-green-600 mt-1">${result.price.toFixed(2)}</p>
+            {result.description && (
+              <p className="text-sm text-gray-600 mt-2">{result.description}</p>
+            )}
+            {result.modifications && result.modifications.length > 0 && (
+              <div className="mt-2 text-sm text-blue-600">
+                <p className="font-medium">Modifications:</p>
+                <ul className="list-disc list-inside">
+                  {result.modifications.map((mod: string, idx: number) => (
+                    <li key={idx}>{mod}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       );
 
@@ -134,19 +148,58 @@ function renderToolResult(toolInvocation: any) {
 
     case "confirmOrder":
       return (
-        <div className="bg-blue-50 rounded-lg p-3 text-blue-800 border border-blue-200">
-          <h4 className="font-semibold mb-2">Order Summary</h4>
-          {result.items.map((item: any, idx: number) => (
-            <div key={idx} className="text-sm flex justify-between">
-              <span>{item.quantity}x {item.name}</span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="bg-gray-100 p-4 text-center">
+            <h4 className="font-bold text-lg">Order Confirmation</h4>
+            <p className="text-sm text-gray-600 mt-1">Table #{result.tableNumber}</p>
+          </div>
+          
+          <div className="p-4 space-y-3">
+            {result.items.map((item: any, idx: number) => (
+              <div key={idx} className="flex justify-between text-sm">
+                <div className="flex-1">
+                  <span className="font-medium">{item.quantity}x {item.name}</span>
+                  {item.modifications && item.modifications.length > 0 && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      {item.modifications.join(", ")}
+                    </div>
+                  )}
+                </div>
+                <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))}
+            
+            <div className="border-t pt-3 space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Subtotal</span>
+                <span>${result.subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Tax</span>
+                <span>${result.tax.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between font-bold text-lg border-t pt-2">
+                <span>Total</span>
+                <span>${result.total.toFixed(2)}</span>
+              </div>
             </div>
-          ))}
-          <div className="mt-2 pt-2 border-t border-blue-200">
-            <p className="font-semibold flex justify-between">
-              <span>Total:</span>
-              <span>${result.total.toFixed(2)}</span>
-            </p>
+            
+            <div className="pt-4 space-y-3">
+              <button className="w-full bg-black text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
+                <svg className="w-5 h-5" viewBox="0 0 50 20">
+                  <path fill="white" d="M9.5 3.5a2.5 2.5 0 0 1 2-2.45V.5A3 3 0 0 0 8.5 3.5v1a3 3 0 0 0 3 3h1a2.5 2.5 0 0 1 0 5h-1a2.5 2.5 0 0 1-2.5-2.5v-.5h-.5v.5a3 3 0 0 0 3 3h1a3 3 0 0 0 0-6h-1a2.5 2.5 0 0 1-2.5-2.5v-1z"/>
+                </svg>
+                Pay
+              </button>
+              
+              <button className="w-full bg-gray-100 text-gray-800 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors">
+                <svg className="w-6 h-4" viewBox="0 0 24 16">
+                  <rect width="24" height="16" rx="2" fill="#1434CB"/>
+                  <rect x="16" y="11" width="5" height="3" fill="#FF6B00"/>
+                </svg>
+                Credit Card
+              </button>
+            </div>
           </div>
         </div>
       );
