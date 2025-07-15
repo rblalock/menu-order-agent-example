@@ -82,7 +82,7 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
               value={input}
               onChange={handleInputChange}
               placeholder="Type your order..."
-              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
               disabled={isLoading}
             />
             <button
