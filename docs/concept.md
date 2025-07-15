@@ -18,7 +18,8 @@ One thing to make this simple: We don't need all the complicated user tracking a
 - Generative UI: https://ai-sdk.dev/docs/ai-sdk-ui/generative-user-interfaces
 - Object gen: https://ai-sdk.dev/docs/ai-sdk-ui/object-generation
 - Structured data: https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data
--
+
+The chat streaming response will include tool calls from the agent.  These will have special UI components that will be used: when a user selects an item, an item that the user is asking about (shows an image, description, price, etc)., double check order before placing (with an apple pay button), and them a final payment / order placed component.
 
 Agentuity agent:
 This will be a separate folder - restaurant-chat - where the agent lives.  It is it's own project.  Built in Bun and will likewise use the Vercel AI SDK for streaming text, etc.
@@ -26,6 +27,8 @@ This will be a separate folder - restaurant-chat - where the agent lives.  It is
 Agentuity JS SDK docs are here: https://agentuity.dev/SDKs/javascript/api-reference
 
 Run the agent by going to the restaurant-chat folder and running `agentuity dev`
+
+The agent will have access to the menu.json as well and use it in context to the LLM call, be able to look through it and pull out info for the user, etc. (it's sort of the database if you will).
 
 For how this works with AI SDK's useChat, here is some example code from other agents I've built:
 In the agent use the streamText or streamObject, then return the results.toDataStreamResponse() method.  This will stream it back to the client, which the client useChat would look something like:
