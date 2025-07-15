@@ -57,14 +57,7 @@ export default async function Agent(
     });
 
     // Return the streaming response
-    const stream = result.toDataStreamResponse();
-    
-    // Set appropriate headers
-    resp.headers.set('Content-Type', 'text/event-stream');
-    resp.headers.set('Cache-Control', 'no-cache');
-    resp.headers.set('Connection', 'keep-alive');
-    
-    return stream;
+    return result.toDataStreamResponse();
   } catch (error) {
     ctx.logger.error('Error running agent:', error);
     return resp.text('Sorry, there was an error processing your request. Please try again.');
