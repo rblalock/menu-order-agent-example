@@ -1,0 +1,784 @@
+{
+  "categories": [
+    {
+      "name": "Soft Drinks",
+      "items": [
+        {
+          "name": "Pink Lemonade",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Root Beer",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Orange Fanta",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Ginger Ale",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Sprite",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Coke",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Diet Coke",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Arnold Palmer",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Brewed Iced Tea",
+          "price": 3.79,
+          "subcategory": "Fountain Drinks"
+        },
+        {
+          "name": "Milk",
+          "price": 3.79,
+          "subcategory": "Bottles & Cans"
+        },
+        {
+          "name": "Chocolate Milk",
+          "price": 3.99,
+          "subcategory": "Bottles & Cans"
+        },
+        {
+          "name": "Apple Juice",
+          "price": 1.99,
+          "subcategory": "Bottles & Cans"
+        },
+        {
+          "name": "Smartwater Bottle",
+          "price": 4.49,
+          "subcategory": "Bottles & Cans"
+        },
+        {
+          "name": "San Pellegrino",
+          "price": 3.79,
+          "subcategory": "Bottles & Cans"
+        },
+        {
+          "name": "Iced Tea Bottle",
+          "price": 3.99,
+          "subcategory": "Bottles & Cans"
+        }
+      ]
+    },
+    {
+      "name": "Beers",
+      "items": [
+        {
+          "name": "Michelob ULTRA",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Shocktop",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Stella Artois",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Yuengling",
+          "price": 3.5,
+          "original_price": 6.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Mango Cart",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Kona Big Wave",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Landshark Lager",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Lighthouse Cove IPA",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Fresh IPA",
+          "price": 7.5,
+          "original_price": 10.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Chancellor",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "IPGA",
+          "price": 4.5,
+          "original_price": 7.0,
+          "subcategory": "Draft Beers"
+        },
+        {
+          "name": "Corona Bottle",
+          "price": 6.5,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Corona Light Bottle",
+          "price": 6.5,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Coors Light Bottle",
+          "price": 5.25,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Miller Light Bottle",
+          "price": 5.25,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Budweiser Bottle",
+          "price": 6.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Bud Light Bottle",
+          "price": 6.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Michelob Ultra Bottle",
+          "price": 6.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Landshark Bottle",
+          "price": 6.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Stella Zero (NA) Bottle",
+          "price": 5.25,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Surfside",
+          "price": 8.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Nutrl",
+          "price": 7.5,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "High Noon",
+          "price": 8.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "High Noon Tequila",
+          "price": 8.0,
+          "subcategory": "Beer Bottles & Cans"
+        },
+        {
+          "name": "Los Sundays Tequila",
+          "price": 8.0,
+          "subcategory": "Beer Bottles & Cans"
+        }
+      ]
+    },
+    {
+      "name": "Wines",
+      "items": [
+        {
+          "name": "Ruffino Prosecco",
+          "price": 12.0,
+          "subcategory": "Sparkling Wine"
+        },
+        {
+          "name": "Mondavi Pinot Grigio",
+          "price": 5.5,
+          "original_price": 8.0,
+          "subcategory": "White Wine"
+        },
+        {
+          "name": "Ruffino Pinot Grigio",
+          "price": 12.0,
+          "subcategory": "White Wine"
+        },
+        {
+          "name": "Kim Crawford Sauvignon Blanc",
+          "price": 13.0,
+          "subcategory": "White Wine"
+        },
+        {
+          "name": "Mondavi Chardonnay",
+          "price": 5.5,
+          "original_price": 8.0,
+          "subcategory": "White Wine"
+        },
+        {
+          "name": "Skyside Chardonnay",
+          "price": 10.0,
+          "subcategory": "White Wine"
+        },
+        {
+          "name": "Beach Ros\u00e9",
+          "price": 12.0,
+          "subcategory": "White Wine"
+        },
+        {
+          "name": "Acrobat Pinot Noir",
+          "price": 12.0,
+          "subcategory": "Red Wine"
+        },
+        {
+          "name": "Rodney Strong Merlot",
+          "price": 12.0,
+          "subcategory": "Red Wine"
+        },
+        {
+          "name": "Mondavi Cabernet Sauvignon",
+          "price": 5.5,
+          "original_price": 8.0,
+          "subcategory": "Red Wine"
+        },
+        {
+          "name": "Skyside Cabernet Sauvignon",
+          "price": 11.0,
+          "subcategory": "Red Wine"
+        },
+        {
+          "name": "Jordan Cabernet Sauvignon",
+          "price": 85.0,
+          "subcategory": "Red Wine"
+        },
+        {
+          "name": "Caymus Cabernet Sauvignon",
+          "price": 130.0,
+          "subcategory": "Red Wine"
+        }
+      ]
+    },
+    {
+      "name": "Appetizers",
+      "items": [
+        {
+          "name": "Fried Wings",
+          "price": 12.0,
+          "original_price": 16.0,
+          "description": "Hand-breaded wings, available with your choice of sauce. Served with ranch or blue cheese."
+        },
+        {
+          "name": "Grilled Wings",
+          "price": 12.75,
+          "original_price": 17.0,
+          "description": "Braised wings, available with your choice of sauce on the side. Served with ranch or blue cheese."
+        },
+        {
+          "name": "Mozzarella Sticks",
+          "price": 8.25,
+          "original_price": 11.0,
+          "description": "Golden-fried mozzarella sticks served with marinara sauce and a sprinkle of parmesan cheese."
+        },
+        {
+          "name": "Tri-Colored Chips",
+          "price": 6.0,
+          "original_price": 8.0,
+          "description": "Crispy tri-colored tortillas served with pico de gallo. Add guacamole or queso blanco."
+        },
+        {
+          "name": "Waste Bunker Nachos",
+          "price": 8.62,
+          "original_price": 11.5,
+          "description": "Crispy tri-colored tortillas topped with housemade black beans, queso blanco, pico de gallo, and jalapeno."
+        },
+        {
+          "name": "Chicken Tender Appetizer",
+          "price": 9.75,
+          "original_price": 13.0,
+          "description": "Five hand-breaded buttermilk marinated tenders. Served with honey mustard. Prepared original crispy or tossed in your favorite sauce."
+        },
+        {
+          "name": "Smoked Fish Dip",
+          "price": 10.5,
+          "original_price": 14.0,
+          "description": "A Florida favorite!!!"
+        },
+        {
+          "name": "Buffalo Chicken Tender Quesadilla",
+          "price": 9.75,
+          "original_price": 13.0,
+          "description": "Hand-breaded chicken tenders, crispy with melted cheddar jack, tossed in mild sauce. Served with shredded lettuce, pico de gallo, and cilantro creme."
+        },
+        {
+          "name": "Pretzel Bites",
+          "price": 7.5,
+          "original_price": 10.0,
+          "description": "(12) Soft pretzels served with queso blanco. Topped with pretzel salt."
+        },
+        {
+          "name": "Potato Chips",
+          "price": 6.0,
+          "original_price": 8.0,
+          "description": "Fresh fried potato chips served with french onion dip."
+        },
+        {
+          "name": "Fried Pickles",
+          "price": 7.12,
+          "original_price": 9.5,
+          "description": "Hand-breaded buttermilk marinated pickle chips served with boom boom sauce. Topped with parmesan cheese."
+        },
+        {
+          "name": "Cauliflower Kickers",
+          "price": 10.0,
+          "description": "Fried cauliflower bites tossed in sweet heat sauce and topped with parmesan cheese. Served with poblano ranch."
+        }
+      ]
+    },
+    {
+      "name": "Salads",
+      "items": [
+        {
+          "name": "Quinoa Salad",
+          "price": 15.0,
+          "description": "Red quinoa tossed with red onion, cotija cheese, shredded carrots, and citrus vinaigrette. Surrounded by arugula and wedged tomatoes. Topped with sliced avocado and balsamic glaze."
+        },
+        {
+          "name": "Jupiter Salad",
+          "price": 11.0,
+          "description": "Romaine topped with red onion, roasted corn, tomatoes, and sliced avocado. Served with balsamic vinaigrette and red wine vinegar on side."
+        },
+        {
+          "name": "Caesar Salad",
+          "price": 10.0,
+          "description": "Fresh cut romaine tossed in Caesar dressing. Topped with parmesan cheese and croutons."
+        },
+        {
+          "name": "Taco Salad",
+          "price": 11.0,
+          "description": "Shredded iceberg lettuce topped with seasoned taco beef, cheddar-jack cheese, pico, cilantro creme, and crispy tortilla strips."
+        },
+        {
+          "name": "Southwest Chicken Elote Salad",
+          "price": 17.0,
+          "description": "Romaine lettuce tossed with citrus vinaigrette, braised chicken, roasted corn, cheddar-jack cheese, seasoned cotija, crispy tortilla strips, pico, poblano ranch."
+        }
+      ]
+    },
+    {
+      "name": "Burgers",
+      "items": [
+        {
+          "name": "The Shack Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "American cheese, bacon jam, shack sauce, lettuce, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "Pepperjack-A-Reno Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "Pepper jack cheese, bacon, fried jalapeno, mango habanero sauce, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Jersey Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "American cheese, bacon, fried egg, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Cove Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "Swiss cheese, caramelized onions, green goddess sauce, lettuce, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Chunker Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "Cheddar cheese, bacon, potato chips, BBQ sauce, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Black-N-Blue Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "Blackened burger with blue cheese, caramelized onions, bacon, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Crunchy Queso Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "Blackened burger with queso blanco, pico, crispy tortilla strips, lettuce. Pickle chips on the side."
+        },
+        {
+          "name": "The Spicy Guac Smash",
+          "price": 14.0,
+          "subcategory": "Smash Burgers",
+          "description": "Cheddar cheese, bacon, jalapeno, guacamole, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "Build Your Burger Smash",
+          "price": 11.0,
+          "subcategory": "Smash Burgers",
+          "description": "Lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Shack Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "American cheese, bacon jam, shack sauce, lettuce, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "Pepperjack-A-Reno Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Pepper jack cheese, bacon, fried jalapeno, mango habanero sauce, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Jersey Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "American cheese, bacon, fried egg, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Cove Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Swiss cheese, caramelized onions, green goddess sauce, lettuce, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Chunker Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Cheddar cheese, bacon, potato chips, BBQ sauce, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Black-N-Blue Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Blackened burger with blue cheese, caramelized onions, bacon, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "The Crunchy Queso Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Blackened burger with queso blanco, pico, crispy tortilla strips, lettuce. Pickle chips on the side."
+        },
+        {
+          "name": "The Spicy Guac Half Pound",
+          "price": 17.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Cheddar cheese, bacon, jalapeno, guacamole, lettuce, onion, tomato. Pickle chips on the side."
+        },
+        {
+          "name": "Build Your Burger Half Pound",
+          "price": 14.0,
+          "subcategory": "Half Pound Burgers",
+          "description": "Lettuce, onion, tomato. Pickle chips on the side."
+        }
+      ]
+    },
+    {
+      "name": "Sandwiches",
+      "items": [
+        {
+          "name": "Crunchy Chicken Sandwich",
+          "price": 12.0,
+          "description": "Hand-breaded buttermilk dipped chicken served with pickle chips. Prepared original crispy or tossed in your favorite sauce."
+        },
+        {
+          "name": "Grilled Chicken BLT",
+          "price": 16.0,
+          "description": "Served with homemade shack sauce. Pickle chips on the side."
+        },
+        {
+          "name": "Blackened Mahi Sandwich",
+          "price": 20.0,
+          "description": "Served with lettuce, onion, tomato. Pickle chips and tartar sauce on the side."
+        },
+        {
+          "name": "BBQ Braised Chicken Sandwich",
+          "price": 15.0,
+          "description": "Served with cheddar, BBQ sauce, bacon, and coleslaw. Pickle chips on the side."
+        },
+        {
+          "name": "Eagle Club",
+          "price": 16.0,
+          "description": "Blackened with swiss, tomato, bacon, arugula, poblano ranch. Pickle chips on the side."
+        },
+        {
+          "name": "Skinny Carlin",
+          "price": 13.5,
+          "description": "2 lettuce cups with homemade chicken salad served with tomato and bacon."
+        }
+      ]
+    },
+    {
+      "name": "Wraps",
+      "items": [
+        {
+          "name": "Chicken Tender Wrap",
+          "price": 17.0,
+          "description": "Hand-breaded chicken tenders with lettuce, onion, tomato, cheddar-jack cheese. Pickle chips on the side. Original crispy or tossed in sauce."
+        },
+        {
+          "name": "Chicken Caesar Wrap",
+          "price": 17.0,
+          "description": "Chicken tenders with romaine lettuce, parmesan cheese, Caesar dressing. Pickle chips on the side."
+        },
+        {
+          "name": "Mahi Wrap",
+          "price": 20.0,
+          "description": "Served with lettuce, onion, tomato, tartar sauce. Pickle chips on the side."
+        },
+        {
+          "name": "Mahi Caesar Wrap",
+          "price": 20.0,
+          "description": "Romaine lettuce, parmesan cheese, Caesar dressing. Pickle chips on the side."
+        }
+      ]
+    },
+    {
+      "name": "Hot Dogs",
+      "items": [
+        {
+          "name": "Jupiter Dog",
+          "price": 8.0,
+          "description": "100% beef hot dog on toasted New England style bun."
+        },
+        {
+          "name": "Looper Dog",
+          "price": 8.0,
+          "description": "100% beef hot dog with relish and diced onion."
+        },
+        {
+          "name": "Kraut Dog",
+          "price": 9.0,
+          "description": "100% beef hot dog with sauerkraut."
+        },
+        {
+          "name": "Shack-Caggo Dog",
+          "price": 8.0,
+          "description": "100% beef hot dog with pickle chips, diced onion, diced tomato, celery salt."
+        },
+        {
+          "name": "Fairway Dog",
+          "price": 9.0,
+          "description": "100% beef hot dog with swiss cheese, coleslaw, shack sauce."
+        },
+        {
+          "name": "Nacho Dog",
+          "price": 10.0,
+          "description": "100% beef hot dog with seasoned taco beef, queso blanco, crispy tortilla strips."
+        }
+      ]
+    },
+    {
+      "name": "Entrees",
+      "items": [
+        {
+          "name": "Caribbean Dinner",
+          "price": 18.0,
+          "description": "Choice of chicken or mahi. Served with rice & black beans or grilled veggies."
+        },
+        {
+          "name": "Lighthouse Tacos",
+          "price": 16.0,
+          "description": "Choice of chicken or mahi. Served with rice & black beans."
+        },
+        {
+          "name": "Chicken Tender Dinner",
+          "price": 16.99,
+          "description": "Five chicken tenders served with fries, coleslaw, honey mustard. Original crispy or tossed in sauce."
+        }
+      ]
+    },
+    {
+      "name": "Kids",
+      "items": [
+        {
+          "name": "Kids Chicken Tenders",
+          "price": 8.75,
+          "description": "Two crispy, hand-breaded chicken tenders."
+        },
+        {
+          "name": "Kids Hot Dog",
+          "price": 8.75,
+          "description": "100% beef hot dog on a New England style bun."
+        },
+        {
+          "name": "Kids Burger",
+          "price": 8.75,
+          "description": "1/4lb smash burger on a potato bun."
+        },
+        {
+          "name": "Kids Mac & Cheese",
+          "price": 8.75,
+          "description": "Kraft Mac & Cheese!"
+        },
+        {
+          "name": "Kids Corn Dog",
+          "price": 8.75,
+          "description": "State Fair Corn Dog!"
+        },
+        {
+          "name": "Kids Grilled Cheese",
+          "price": 8.75,
+          "description": "Buttered white bread with melted American cheese."
+        },
+        {
+          "name": "Kids Grilled Chicken",
+          "price": 8.75,
+          "description": "All natural chicken breast."
+        }
+      ]
+    },
+    {
+      "name": "Extras",
+      "items": [
+        {
+          "name": "French Fries",
+          "price": 3.5
+        },
+        {
+          "name": "Sweet Fries",
+          "price": 4.5
+        },
+        {
+          "name": "Onion Rings",
+          "price": 5.5
+        },
+        {
+          "name": "Coleslaw",
+          "price": 3.0
+        },
+        {
+          "name": "Side of Mac & Cheese",
+          "price": 5.5
+        },
+        {
+          "name": "Fruit",
+          "price": 4.0
+        },
+        {
+          "name": "Rice & Beans",
+          "price": 4.5
+        },
+        {
+          "name": "Grilled Veggies",
+          "price": 4.0
+        },
+        {
+          "name": "Extra Side Sauce",
+          "price": 0.5
+        },
+        {
+          "name": "Extra Side of Queso",
+          "price": 3.0
+        },
+        {
+          "name": "Extra Side of Guacamole",
+          "price": 3.0
+        }
+      ]
+    },
+    {
+      "name": "Ice Cream & Shakes",
+      "items": [
+        {
+          "name": "1 Scoop Ice Cream",
+          "price": 6.0
+        },
+        {
+          "name": "2 Scoop Ice Cream",
+          "price": 7.0
+        },
+        {
+          "name": "3 Scoop Ice Cream",
+          "price": 8.0
+        },
+        {
+          "name": "Milkshake",
+          "price": 10.0
+        },
+        {
+          "name": "Ice Cream Toppings",
+          "price": 0.75
+        },
+        {
+          "name": "Soda Float",
+          "price": 10.0
+        },
+        {
+          "name": "Cookie Monster",
+          "price": 12.0,
+          "description": "\"C\" is for Cookie ice cream in an Oreo crumble chocolate iced glass topped with whipped cream, chocolate chip cookie & chocolate syrup."
+        },
+        {
+          "name": "P&B Perfection",
+          "price": 12.0,
+          "description": "Peanut Butter Fudge ice cream in a Reese's Pieces chocolate iced glass topped with whipped cream, chocolate syrup, Reese's Pieces, peanut butter cup & Nutter Butter cookie."
+        },
+        {
+          "name": "Strawberry D",
+          "price": 12.0,
+          "description": "Strawberry ice cream in a shortbread crumb vanilla iced glass topped with whipped cream, strawberry syrup & a shortbread cookie."
+        },
+        {
+          "name": "S'mores Me",
+          "price": 12.0,
+          "description": "Vanilla ice cream infused with Golden Grahams in a Golden Grahams iced jar topped with whipped cream, chocolate syrup, mini marshmallows & Golden Grahams."
+        },
+        {
+          "name": "Ultimate C&C",
+          "price": 12.0,
+          "description": "Cookies n' Cream ice cream in an Oreo crumble vanilla iced glass topped with whipped cream, chocolate syrup, Oreo's & gummy bears."
+        },
+        {
+          "name": "Saturday Morning",
+          "price": 12.0,
+          "description": "Vanilla ice cream infused with your choice of cereal topped with whipped cream in a cereal-frosted vanilla iced glass."
+        },
+        {
+          "name": "Shake of the Month",
+          "price": 8.0
+        }
+      ]
+    }
+  ]
+}
