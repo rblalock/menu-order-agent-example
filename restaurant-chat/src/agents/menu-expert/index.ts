@@ -1,24 +1,25 @@
-import type { AgentContext, AgentRequest, AgentResponse } from '@agentuity/sdk';
-import { anthropic } from '@ai-sdk/anthropic';
-import { streamText } from 'ai';
-import { z } from 'zod';
-import menuData from '../../data/menu.json';
+import type { AgentContext, AgentRequest, AgentResponse } from "@agentuity/sdk";
+import { anthropic } from "@ai-sdk/anthropic";
+import { streamText } from "ai";
+import { z } from "zod";
+import menuData from "../../data/menu.json";
 
 export const welcome = () => {
   return {
-    welcome: "Hi there! Welcome to Lighthouse Cove. What can I get started for you today?",
+    welcome:
+      "Hi there! Welcome to Lighthouse Cove. What can I get started for you today?",
     prompts: [
       {
-        data: 'What drinks do you have?',
-        contentType: 'text/plain',
+        data: "What drinks do you have?",
+        contentType: "text/plain",
       },
       {
-        data: 'I want a burger and fries',
-        contentType: 'text/plain',
+        data: "I want a burger and fries",
+        contentType: "text/plain",
       },
       {
-        data: 'What are your specials?',
-        contentType: 'text/plain',
+        data: "What are your specials?",
+        contentType: "text/plain",
       },
     ],
   };
@@ -42,43 +43,54 @@ ${JSON.stringify(menuData, null, 2)}`;
 export default async function Agent(
   req: AgentRequest,
   resp: AgentResponse,
-  ctx: AgentContext
+  ctx: AgentContext,
 ) {
   try {
     const userMessage = await req.data.text();
-    
+
     if (!userMessage) {
       return resp.text("What can I get for you today?");
     }
 
     const result = await streamText({
-      model: anthropic('claude-3-5-sonnet-20241022'),
+      model: anthropic("claude-3-5-sonnet-20241022"),
       system: systemPrompt,
       prompt: userMessage,
       tools: {
         showItem: {
-          description: 'Display a menu item with image and details',
-          parameters: z.object({
-            name: z.string().describe('Item name'),
-            price: z.number().describe('Item price'),
-            description: z.string().optional().describe('Item description'),
-            category: z.string().describe('Menu category'),
-            modifications: z.array(z.string()).optional().describe('Customer requested modifications'),
+          description: "Display a menu item with image and details",
+          inputSchema: z.object({
+            name: z.string().describe("Item name"),
+            price: z.number().describe("Item price"),
+            description: z.string().optional().describe("Item description"),
+            category: z.string().describe("Menu category"),
+            modifications: z
+              .array(z.string())
+              .optional()
+              .describe("Customer requested modifications"),
           }),
-          execute: async ({ name, price, description, category, modifications }) => {
+          execute: async ({
+            name,
+            price,
+            description,
+            category,
+            modifications,
+          }) => {
             return { name, price, description, category, modifications };
           },
         },
-        
+
         confirmOrder: {
-          description: 'Show order confirmation with payment options',
-          parameters: z.object({
-            items: z.array(z.object({
-              name: z.string(),
-              price: z.number(),
-              quantity: z.number(),
-              modifications: z.array(z.string()).optional(),
-            })),
+          description: "Show order confirmation with payment options",
+          inputSchema: z.object({
+            items: z.array(
+              z.object({
+                name: z.string(),
+                price: z.number(),
+                quantity: z.number(),
+                modifications: z.array(z.string()).optional(),
+              }),
+            ),
             subtotal: z.number(),
             tax: z.number(),
             total: z.number(),
@@ -88,10 +100,10 @@ export default async function Agent(
             return { items, subtotal, tax, total, tableNumber };
           },
         },
-        
+
         addToCart: {
-          description: 'Add item to cart (internal use)',
-          parameters: z.object({
+          description: "Add item to cart (internal use)",
+          inputSchema: z.object({
             name: z.string(),
             price: z.number(),
             quantity: z.number(),
@@ -107,7 +119,7 @@ export default async function Agent(
     // Return the streaming response
     return result.toDataStreamResponse();
   } catch (error) {
-    ctx.logger.error('Error running agent:', error);
-    return resp.text('Sorry about that. What were you looking to order?');
+    ctx.logger.error("Error running agent:", error);
+    return resp.text("Sorry about that. What were you looking to order?");
   }
 }
