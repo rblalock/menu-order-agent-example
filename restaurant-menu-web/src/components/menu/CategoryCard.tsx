@@ -18,13 +18,6 @@ export default function CategoryCard({ category, onClick }: CategoryCardProps) {
       className="w-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
     >
       <div className="flex items-center p-4 gap-4">
-        <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
-          <img
-            src={PLACEHOLDER_IMAGE}
-            alt={category.name}
-            className="w-full h-full object-cover"
-          />
-        </div>
         <div className="flex-1 text-left">
           <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
           <p className="text-sm text-gray-500">{category.items.length} items</p>

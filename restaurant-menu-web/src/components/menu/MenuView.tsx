@@ -89,7 +89,7 @@ export default function MenuView() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center mb-8">Menu</h1>
+        <h1 className="text-3xl font-bold text-black text-center mb-8">Menu</h1>
         <div className="space-y-4 max-w-2xl mx-auto">
           {menuData.categories.map((category) => (
             <CategoryCard
@@ -117,13 +117,6 @@ function MenuItemCard({
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
       <div className="flex gap-4">
-        <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
-          <img
-            src={imageUrl}
-            alt={item.name}
-            className="w-full h-full object-cover"
-          />
-        </div>
         <div className="flex-1">
           <h4 className="font-semibold text-gray-900">{item.name}</h4>
           {item.description && (
