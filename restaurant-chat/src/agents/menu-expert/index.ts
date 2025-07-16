@@ -35,6 +35,13 @@ Guidelines:
 - Remember customer modifications (like "only lettuce")
 - When confirming a final order, include a table number (random 1-20) and calculate tax (7%)
 
+Tool Usage Guidelines:
+- When showing menu categories (like desserts, drinks, etc), use the showCategory tool to display items visually
+- When showing specific items someone ordered, use the showItem tool
+- When adding items to cart, use the addToCart tool
+- For final order confirmation, use the confirmOrder tool
+- Always prefer using tools over just describing items in text
+
 Here is our full menu:
 ${JSON.stringify(menuData, null, 2)}`;
 
@@ -113,6 +120,50 @@ const tools = {
         name,
         price,
         quantity,
+      };
+    },
+  }),
+
+  showCategory: tool({
+    description: "Display menu items from a specific category",
+    parameters: jsonSchema<{
+      category: string;
+      items: Array<{
+        name: string;
+        price: number;
+        description?: string;
+      }>;
+    }>({
+      type: "object",
+      properties: {
+        category: {
+          type: "string",
+          description: "The category name",
+        },
+        items: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              price: { type: "number" },
+              description: { type: "string", default: "" },
+            },
+            required: ["name", "price"],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ["category", "items"],
+      additionalProperties: false,
+    }),
+    execute: async ({ category, items }) => {
+      return {
+        category,
+        items: items.map((item) => ({
+          ...item,
+          description: item.description || "",
+        })),
       };
     },
   }),

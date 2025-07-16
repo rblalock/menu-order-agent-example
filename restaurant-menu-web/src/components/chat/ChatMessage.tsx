@@ -3,7 +3,7 @@
 import { Message } from "ai";
 import { Palmtree, User } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 interface ChatMessageProps {
@@ -53,14 +53,14 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : "bg-gray-100 text-gray-900"
         }`}
       >
-        <ReactMarkdown className="prose prose-sm max-w-none">{message.content}</ReactMarkdown>
+        <div className={`prose prose-sm max-w-none ${isUser ? "prose-invert" : ""}`}>
+          <ReactMarkdown>{message.content}</ReactMarkdown>
+        </div>
         
         {message.toolInvocations && message.toolInvocations.length > 0 && (
           <div className="space-y-2 mt-2">
             {message.toolInvocations.map((toolInvocation, index) => (
-              <div key={index}>
-                {renderToolResult(toolInvocation)}
-              </div>
+              <ToolResult key={index} toolInvocation={toolInvocation} />
             ))}
           </div>
         )}
@@ -69,7 +69,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
   );
 }
 
-function renderToolResult(toolInvocation: any) {
+function ToolResult({ toolInvocation }: { toolInvocation: any }) {
+  const [isExpanded, setIsExpanded] = useState(true);
+  
   if (!toolInvocation.result) return null;
 
   const { toolName, result } = toolInvocation;
@@ -77,27 +79,69 @@ function renderToolResult(toolInvocation: any) {
   switch (toolName) {
     case "showItem":
       return (
-        <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
-          <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center">
-            <span className="text-2xl font-semibold text-gray-700">{result.name}</span>
-          </div>
-          <div className="p-4">
-            <h4 className="font-semibold text-lg">{result.name}</h4>
-            <p className="text-xl font-bold text-green-600 mt-1">${result.price.toFixed(2)}</p>
-            {result.description && (
-              <p className="text-sm text-gray-600 mt-2">{result.description}</p>
-            )}
-            {result.modifications && result.modifications.length > 0 && (
-              <div className="mt-2 text-sm text-blue-600">
-                <p className="font-medium">Modifications:</p>
-                <ul className="list-disc list-inside">
-                  {result.modifications.map((mod: string, idx: number) => (
-                    <li key={idx}>{mod}</li>
-                  ))}
-                </ul>
+        <div 
+          className="bg-white rounded-lg overflow-hidden border border-gray-200 cursor-pointer transition-all"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? (
+            <>
+              <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center">
+                <span className="text-2xl font-semibold text-gray-700">{result.name}</span>
               </div>
-            )}
+              <div className="p-4">
+                <h4 className="font-semibold text-lg">{result.name}</h4>
+                <p className="text-xl font-bold text-green-600 mt-1">${result.price.toFixed(2)}</p>
+                {result.description && (
+                  <p className="text-sm text-gray-600 mt-2">{result.description}</p>
+                )}
+                {result.modifications && result.modifications.length > 0 && (
+                  <div className="mt-2 text-sm text-blue-600">
+                    <p className="font-medium">Modifications:</p>
+                    <ul className="list-disc list-inside">
+                      {result.modifications.map((mod: string, idx: number) => (
+                        <li key={idx}>{mod}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="p-3 flex justify-between items-center">
+              <span className="font-medium">{result.name}</span>
+              <span className="text-green-600 font-bold">${result.price.toFixed(2)}</span>
+            </div>
+          )}
+        </div>
+      );
+
+    case "showCategory":
+      return (
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div 
+            className="bg-gray-100 p-3 font-semibold cursor-pointer hover:bg-gray-200 transition-colors"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            <div className="flex justify-between items-center">
+              <span>{result.category}</span>
+              <span className="text-sm text-gray-500">{isExpanded ? "▼" : "▶"}</span>
+            </div>
           </div>
+          {isExpanded && (
+            <div className="p-3 space-y-2">
+              {result.items.map((item: any, idx: number) => (
+                <div key={idx} className="flex justify-between items-start py-2 border-b last:border-0">
+                  <div className="flex-1">
+                    <div className="font-medium">{item.name}</div>
+                    {item.description && (
+                      <div className="text-sm text-gray-600 mt-1">{item.description}</div>
+                    )}
+                  </div>
+                  <div className="text-green-600 font-bold ml-4">${item.price.toFixed(2)}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       );
 
