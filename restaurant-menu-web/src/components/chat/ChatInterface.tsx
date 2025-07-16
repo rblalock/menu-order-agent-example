@@ -141,7 +141,7 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
                   handleInputChange({ target: { value: text } } as any);
                   setTimeout(() => {
                     handleSubmit({ preventDefault: () => {} } as any);
-                  }, 100);
+                  }, 200);
                 }}
               />
             ))}

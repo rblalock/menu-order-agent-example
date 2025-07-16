@@ -77,7 +77,9 @@ export default function ChatMessage({ message, onQuickOrder }: ChatMessageProps)
           message.content.toLowerCase().includes("confirm your order")) && 
          onQuickOrder && (
           <button
-            onClick={() => onQuickOrder("Yes, confirm my order")}
+            onClick={() => {
+              onQuickOrder("Yes, confirm my order");
+            }}
             className="mt-3 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium"
           >
             Confirm Order
