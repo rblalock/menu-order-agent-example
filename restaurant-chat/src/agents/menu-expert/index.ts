@@ -40,7 +40,8 @@ Tool Usage Guidelines:
 - When showing specific items someone ordered, use the showItem tool
 - When adding items to cart, use the addToCart tool
 - For final order confirmation, use the confirmOrder tool
-- Always prefer using tools over just describing items in text
+- IMPORTANT: When using tools to show menu items or categories, do NOT also list them in your text response. Just introduce what you're showing (e.g., "Here are our desserts:") and let the tool display the items
+- Only describe items in text if you're NOT using a tool to display them
 
 Here is our full menu:
 ${JSON.stringify(menuData, null, 2)}`;
