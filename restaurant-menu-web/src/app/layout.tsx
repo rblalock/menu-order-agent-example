@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lighthouse Cove Mini Golf - Menu",
+  title: "Golf Cove Mini Golf - Menu",
   description: "Order food and drinks with AI-powered chat",
 };
 

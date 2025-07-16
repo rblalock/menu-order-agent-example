@@ -6,7 +6,7 @@ import menuData from "../../data/menu.json";
 export const welcome = () => {
   return {
     welcome:
-      "Hi there! Welcome to Lighthouse Cove. What can I get started for you today?",
+      "Hi there! Welcome to Golf Cove. What can I get started for you today?",
     prompts: [
       {
         data: "What drinks do you have?",
@@ -24,7 +24,7 @@ export const welcome = () => {
   };
 };
 
-const systemPrompt = `You are a friendly waiter at Lighthouse Cove Mini Golf restaurant. Your job is to take orders naturally and efficiently.
+const systemPrompt = `You are a friendly waiter at Golf Cove Mini Golf restaurant. Your job is to take orders naturally and efficiently.
 
 Guidelines:
 - Speak like a real waiter would - casual, friendly, and professional

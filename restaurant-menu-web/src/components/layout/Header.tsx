@@ -17,7 +17,7 @@ export default function Header({ onChatToggle, onCartToggle }: HeaderProps) {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold">Lighthouse Cove</h1>
+            <h1 className="text-xl font-bold">Golf Cove</h1>
           </div>
 
           <div className="flex items-center gap-4">
