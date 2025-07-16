@@ -13,15 +13,13 @@ export default function Header({ onChatToggle, onCartToggle }: HeaderProps) {
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#1a472a] text-white">
+    <header className="sticky top-0 z-50 bg-black text-white">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold">
-              Lighthouse Cove Mini Golf
-            </h1>
+            <h1 className="text-xl font-bold">Lighthouse Cove</h1>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <button
               onClick={onChatToggle}
@@ -30,7 +28,7 @@ export default function Header({ onChatToggle, onCartToggle }: HeaderProps) {
               <MessageSquare size={20} />
               <span className="hidden sm:inline">Chat to Order</span>
             </button>
-            
+
             <button
               onClick={onCartToggle}
               className="relative p-2 hover:bg-white/10 rounded-lg transition-colors"

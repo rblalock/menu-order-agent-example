@@ -9,9 +9,9 @@ import { getItemImage } from "@/utils/itemImages";
 
 export default function MenuView() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
-  const currentCategory = selectedCategory 
-    ? menuData.categories.find(cat => cat.name === selectedCategory)
+
+  const currentCategory = selectedCategory
+    ? menuData.categories.find((cat) => cat.name === selectedCategory)
     : null;
 
   if (selectedCategory && currentCategory) {
@@ -32,31 +32,51 @@ export default function MenuView() {
         </div>
 
         <div className="container mx-auto px-4 py-6">
-          <h2 className="text-2xl font-bold mb-6">{selectedCategory}</h2>
-          
+          <h2 className="text-2xl font-bold text-black mb-6">
+            {selectedCategory}
+          </h2>
+
           {/* Group items by subcategory if they exist */}
           {(() => {
-            const subcategories = [...new Set(currentCategory.items.map(item => (item as any).subcategory).filter(Boolean))];
-            
+            const subcategories = [
+              ...new Set(
+                currentCategory.items
+                  .map((item) => (item as any).subcategory)
+                  .filter(Boolean),
+              ),
+            ];
+
             if (subcategories.length > 0) {
-              return subcategories.map(subcategory => (
+              return subcategories.map((subcategory) => (
                 <div key={subcategory} className="mb-8">
-                  <h3 className="text-lg font-semibold text-gray-700 mb-4">{subcategory}</h3>
+                  <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                    {subcategory}
+                  </h3>
                   <div className="space-y-4">
                     {currentCategory.items
-                      .filter(item => (item as any).subcategory === subcategory)
+                      .filter(
+                        (item) => (item as any).subcategory === subcategory,
+                      )
                       .map((item, index) => (
-                        <MenuItemCard key={`${item.name}-${index}`} item={item} category={selectedCategory} />
+                        <MenuItemCard
+                          key={`${item.name}-${index}`}
+                          item={item}
+                          category={selectedCategory}
+                        />
                       ))}
                   </div>
                 </div>
               ));
             }
-            
+
             return (
               <div className="space-y-4">
                 {currentCategory.items.map((item, index) => (
-                  <MenuItemCard key={`${item.name}-${index}`} item={item} category={selectedCategory} />
+                  <MenuItemCard
+                    key={`${item.name}-${index}`}
+                    item={item}
+                    category={selectedCategory}
+                  />
                 ))}
               </div>
             );
@@ -84,10 +104,16 @@ export default function MenuView() {
   );
 }
 
-function MenuItemCard({ item, category }: { item: any; category: string | null }) {
+function MenuItemCard({
+  item,
+  category,
+}: {
+  item: any;
+  category: string | null;
+}) {
   const { addItem } = useCart();
   const imageUrl = getItemImage(item.name, category || undefined);
-  
+
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
       <div className="flex gap-4">

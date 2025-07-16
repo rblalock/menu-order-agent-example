@@ -13,36 +13,31 @@ interface ChatInterfaceProps {
 export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
-  
+
   const loadingMessages = [
     "Checking our menu...",
     "Finding the perfect items...",
     "Preparing your options...",
     "Getting that ready for you...",
-    "Looking through our kitchen..."
+    "Looking through our kitchen...",
   ];
-  
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    isLoading,
-  } = useChat({
-    api: "http://127.0.0.1:3500/agent_f130f43cce1e9ec5a8610574d38762e8",
-    body: {
-      threadId: `session-${Date.now()}`,
-    },
-    onError: (error) => {
-      console.error("Chat error:", error);
-    },
-    maxSteps: 5,
-  });
+
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat({
+      api: "http://127.0.0.1:3500/agent_f130f43cce1e9ec5a8610574d38762e8",
+      body: {
+        threadId: `session-${Date.now()}`,
+      },
+      onError: (error) => {
+        console.error("Chat error:", error);
+      },
+      maxSteps: 5,
+    });
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-  
+
   useEffect(() => {
     if (isLoading) {
       const interval = setInterval(() => {
@@ -56,10 +51,7 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
 
   return (
     <>
-      <div
-        className="fixed inset-0 bg-black bg-opacity-30 z-50"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 z-50" onClick={onClose} />
       <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-xl z-50">
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b">
@@ -76,7 +68,8 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
             {messages.length === 0 && (
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-4">
-                  Hi! I can help you order food quickly. Just tell me what you'd like!
+                  Hi! I can help you order food quickly. Just tell me what you'd
+                  like!
                 </p>
                 <div className="space-y-2 text-sm text-gray-500">
                   <p>Try saying:</p>
@@ -86,11 +79,11 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
                 </div>
               </div>
             )}
-            
+
             {messages.map((message) => (
-              <ChatMessage 
-                key={message.id} 
-                message={message} 
+              <ChatMessage
+                key={message.id}
+                message={message}
                 onQuickOrder={(text: string) => {
                   handleInputChange({ target: { value: text } } as any);
                   setTimeout(() => {
@@ -99,7 +92,7 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
                 }}
               />
             ))}
-            
+
             {isLoading && (
               <div className="flex items-center gap-2 text-gray-500 text-sm p-4">
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -108,14 +101,11 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
                 </span>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="border-t p-4 flex gap-2"
-          >
+          <form onSubmit={handleSubmit} className="border-t p-4 flex gap-2">
             <input
               type="text"
               value={input}

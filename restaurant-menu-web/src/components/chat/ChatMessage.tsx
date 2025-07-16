@@ -100,9 +100,6 @@ function ToolResult({ toolInvocation, onQuickOrder }: { toolInvocation: any; onQ
         >
           {isExpanded ? (
             <>
-              <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center">
-                <span className="text-2xl font-semibold text-gray-700">{result.name}</span>
-              </div>
               <div className="p-4">
                 <h4 className="font-semibold text-lg">{result.name}</h4>
                 <p className="text-xl font-bold text-green-600 mt-1">${result.price.toFixed(2)}</p>
