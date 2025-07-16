@@ -26,7 +26,7 @@ export default function Header({ onChatToggle, onCartToggle }: HeaderProps) {
               className="flex items-center gap-2 px-4 py-2 bg-white text-[#1a472a] rounded-lg hover:bg-gray-100 transition-colors"
             >
               <MessageSquare size={20} />
-              <span className="hidden sm:inline">Chat to Order</span>
+              <span className="hidden sm:inline text-black">Chat to Order</span>
             </button>
 
             <button

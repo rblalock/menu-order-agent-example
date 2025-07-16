@@ -55,7 +55,7 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
       <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-xl z-50">
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="text-xl font-semibold">Chat to Order</h2>
+            <h2 className="text-xl font-semibold text-black">Chat to Order</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 rounded-lg"
@@ -71,12 +71,6 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
                   Hi! I can help you order food quickly. Just tell me what you'd
                   like!
                 </p>
-                <div className="space-y-2 text-sm text-gray-500">
-                  <p>Try saying:</p>
-                  <p className="italic">"I want a burger and fries"</p>
-                  <p className="italic">"What soft drinks do you have?"</p>
-                  <p className="italic">"Add 2 pizzas to my order"</p>
-                </div>
               </div>
             )}
 
