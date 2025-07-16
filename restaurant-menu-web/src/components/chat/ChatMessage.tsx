@@ -14,6 +14,11 @@ export default function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === "user";
   const { addItem } = useCart();
   const processedInvocations = useRef(new Set<string>());
+  
+  // Check if we have tool invocations that should replace text content
+  const hasDisplayTools = message.toolInvocations?.some((inv: any) => 
+    ['showCategory', 'showItem', 'confirmOrder'].includes(inv.toolName)
+  );
 
   // Handle addToCart tool invocations
   useEffect(() => {
@@ -53,9 +58,17 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : "bg-gray-100 text-gray-900"
         }`}
       >
-        <div className={`prose prose-sm max-w-none ${isUser ? "prose-invert" : ""}`}>
-          <ReactMarkdown>{message.content}</ReactMarkdown>
-        </div>
+        {/* Only show text content if it's user message or if there are no display tools */}
+        {(isUser || !hasDisplayTools) && message.content && (
+          <div className={`prose prose-sm max-w-none ${isUser ? "prose-invert" : ""}`}>
+            <ReactMarkdown>{message.content}</ReactMarkdown>
+          </div>
+        )}
+        
+        {/* Show brief intro text if we have display tools and the message is short */}
+        {!isUser && hasDisplayTools && message.content && message.content.length < 100 && (
+          <p className="text-sm mb-2">{message.content}</p>
+        )}
         
         {message.toolInvocations && message.toolInvocations.length > 0 && (
           <div className="space-y-2 mt-2">
