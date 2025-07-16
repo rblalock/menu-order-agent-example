@@ -69,7 +69,16 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
             )}
             
             {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
+              <ChatMessage 
+                key={message.id} 
+                message={message} 
+                onQuickOrder={(text: string) => {
+                  handleInputChange({ target: { value: text } } as any);
+                  setTimeout(() => {
+                    handleSubmit({ preventDefault: () => {} } as any);
+                  }, 100);
+                }}
+              />
             ))}
             <div ref={messagesEndRef} />
           </div>

@@ -8,9 +8,10 @@ import ReactMarkdown from "react-markdown";
 
 interface ChatMessageProps {
   message: Message;
+  onQuickOrder?: (text: string) => void;
 }
 
-export default function ChatMessage({ message }: ChatMessageProps) {
+export default function ChatMessage({ message, onQuickOrder }: ChatMessageProps) {
   const isUser = message.role === "user";
   const { addItem } = useCart();
   const processedInvocations = useRef(new Set<string>());
@@ -73,7 +74,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         {message.toolInvocations && message.toolInvocations.length > 0 && (
           <div className="space-y-2 mt-2">
             {message.toolInvocations.map((toolInvocation, index) => (
-              <ToolResult key={index} toolInvocation={toolInvocation} />
+              <ToolResult key={index} toolInvocation={toolInvocation} onQuickOrder={onQuickOrder} />
             ))}
           </div>
         )}
@@ -82,8 +83,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
   );
 }
 
-function ToolResult({ toolInvocation }: { toolInvocation: any }) {
-  const [isExpanded, setIsExpanded] = useState(true);
+function ToolResult({ toolInvocation, onQuickOrder }: { toolInvocation: any; onQuickOrder?: (text: string) => void }) {
+  const [isExpanded, setIsExpanded] = useState(toolInvocation.toolName === 'showCategory' ? false : true);
+  const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   
   if (!toolInvocation.result) return null;
 
@@ -117,6 +119,17 @@ function ToolResult({ toolInvocation }: { toolInvocation: any }) {
                     </ul>
                   </div>
                 )}
+                {onQuickOrder && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onQuickOrder(`I want the ${result.name}${result.modifications && result.modifications.length > 0 ? ' with ' + result.modifications.join(', ') : ''}`);
+                    }}
+                    className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors w-full"
+                  >
+                    I want this
+                  </button>
+                )}
               </div>
             </>
           ) : (
@@ -142,17 +155,53 @@ function ToolResult({ toolInvocation }: { toolInvocation: any }) {
           </div>
           {isExpanded && (
             <div className="p-3 space-y-2">
-              {result.items.map((item: any, idx: number) => (
-                <div key={idx} className="flex justify-between items-start py-2 border-b last:border-0">
-                  <div className="flex-1">
-                    <div className="font-medium">{item.name}</div>
-                    {item.description && (
-                      <div className="text-sm text-gray-600 mt-1">{item.description}</div>
+              {result.items.map((item: any, idx: number) => {
+                const isItemExpanded = expandedItems.has(idx);
+                
+                return (
+                  <div key={idx} className="border-b last:border-0">
+                    <div 
+                      className="flex justify-between items-start py-2 cursor-pointer hover:bg-gray-50"
+                      onClick={() => {
+                        const newExpanded = new Set(expandedItems);
+                        if (isItemExpanded) {
+                          newExpanded.delete(idx);
+                        } else {
+                          newExpanded.add(idx);
+                        }
+                        setExpandedItems(newExpanded);
+                      }}
+                    >
+                      <div className="flex-1">
+                        <div className="font-medium">{item.name}</div>
+                        {!isItemExpanded && item.description && (
+                          <div className="text-sm text-gray-600 mt-1 line-clamp-1">{item.description}</div>
+                        )}
+                      </div>
+                      <div className="text-green-600 font-bold ml-4">${item.price.toFixed(2)}</div>
+                    </div>
+                    
+                    {isItemExpanded && (
+                      <div className="px-2 pb-3">
+                        {item.description && (
+                          <div className="text-sm text-gray-600 mb-3">{item.description}</div>
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (onQuickOrder) {
+                              onQuickOrder(`I want the ${item.name}`);
+                            }
+                          }}
+                          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors"
+                        >
+                          I want this
+                        </button>
+                      </div>
                     )}
                   </div>
-                  <div className="text-green-600 font-bold ml-4">${item.price.toFixed(2)}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
