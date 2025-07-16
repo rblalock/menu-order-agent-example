@@ -71,6 +71,19 @@ export default function ChatMessage({ message, onQuickOrder }: ChatMessageProps)
           <p className="text-sm mb-2">{message.content}</p>
         )}
         
+        {/* Add Order button if agent is asking for confirmation */}
+        {!isUser && message.content && 
+         (message.content.toLowerCase().includes("shall i go ahead") || 
+          message.content.toLowerCase().includes("confirm your order")) && 
+         onQuickOrder && (
+          <button
+            onClick={() => onQuickOrder("Yes, confirm my order")}
+            className="mt-3 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium"
+          >
+            Confirm Order
+          </button>
+        )}
+        
         {message.toolInvocations && message.toolInvocations.length > 0 && (
           <div className="space-y-2 mt-2">
             {message.toolInvocations.map((toolInvocation, index) => (
