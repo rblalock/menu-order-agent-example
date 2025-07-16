@@ -1,7 +1,6 @@
 import type { AgentContext, AgentRequest, AgentResponse } from "@agentuity/sdk";
-import { anthropic } from "@ai-sdk/anthropic";
-import { streamText } from "ai";
-import { z } from "zod";
+import { openai } from "@ai-sdk/openai";
+import { streamText, jsonSchema, tool } from "ai";
 import menuData from "../../data/menu.json";
 
 export const welcome = () => {
@@ -33,12 +32,159 @@ Guidelines:
 - Don't over-explain or say things like "I'll help you" or "I'll add that" repeatedly
 - When someone orders, confirm briefly and ask about sides/drinks naturally
 - Be concise but friendly
-- Use the showItem tool when discussing specific menu items
-- Use the confirmOrder tool when finalizing orders
 - Remember customer modifications (like "only lettuce")
+- When confirming a final order, include a table number (random 1-20) and calculate tax (7%)
 
 Here is our full menu:
 ${JSON.stringify(menuData, null, 2)}`;
+
+// Define tools with jsonSchema and execute functions
+const tools = {
+  showItem: tool({
+    description: "Display a menu item with image and details",
+    parameters: jsonSchema<{
+      name: string;
+      price: number;
+      description?: string;
+      modifications?: string[];
+    }>({
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+          description: "The name of the menu item",
+        },
+        price: {
+          type: "number",
+          description: "The price of the item",
+        },
+        description: {
+          type: "string",
+          description: "Description of the item",
+          default: "",
+        },
+        modifications: {
+          type: "array",
+          items: { type: "string" },
+          description: "Any modifications requested",
+          default: [],
+        },
+      },
+      required: ["name", "price"],
+      additionalProperties: false,
+    }),
+    execute: async ({ name, price, description, modifications }) => {
+      return {
+        name,
+        price,
+        description: description || "",
+        modifications: modifications || [],
+      };
+    },
+  }),
+
+  addToCart: tool({
+    description: "Add an item to the customer's cart",
+    parameters: jsonSchema<{
+      name: string;
+      price: number;
+      quantity: number;
+    }>({
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+          description: "The name of the menu item",
+        },
+        price: {
+          type: "number",
+          description: "The price of the item",
+        },
+        quantity: {
+          type: "number",
+          description: "How many to add",
+        },
+      },
+      required: ["name", "price", "quantity"],
+      additionalProperties: false,
+    }),
+    execute: async ({ name, price, quantity }) => {
+      return {
+        name,
+        price,
+        quantity,
+      };
+    },
+  }),
+
+  confirmOrder: tool({
+    description: "Show order confirmation with payment options",
+    parameters: jsonSchema<{
+      items: Array<{
+        name: string;
+        price: number;
+        quantity: number;
+        modifications?: string[];
+      }>;
+      tableNumber: number;
+      subtotal: number;
+      tax: number;
+      total: number;
+    }>({
+      type: "object",
+      properties: {
+        items: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              price: { type: "number" },
+              quantity: { type: "number" },
+              modifications: {
+                type: "array",
+                items: { type: "string" },
+                default: [],
+              },
+            },
+            required: ["name", "price", "quantity"],
+            additionalProperties: false,
+          },
+        },
+        tableNumber: {
+          type: "number",
+          description: "Table number for the order",
+        },
+        subtotal: {
+          type: "number",
+          description: "Subtotal before tax",
+        },
+        tax: {
+          type: "number",
+          description: "Tax amount",
+        },
+        total: {
+          type: "number",
+          description: "Total including tax",
+        },
+      },
+      required: ["items", "tableNumber", "subtotal", "tax", "total"],
+      additionalProperties: false,
+    }),
+    execute: async ({ items, tableNumber, subtotal, tax, total }) => {
+      return {
+        items: items.map((item) => ({
+          ...item,
+          modifications: item.modifications || [],
+        })),
+        tableNumber,
+        subtotal,
+        tax,
+        total,
+      };
+    },
+  }),
+};
 
 export default async function Agent(
   req: AgentRequest,
@@ -46,74 +192,20 @@ export default async function Agent(
   ctx: AgentContext,
 ) {
   try {
-    const userMessage = await req.data.text();
+    // Handle JSON request from useChat
+    const body = (await req.data.json()) as { messages?: any[] };
+    const { messages } = body;
 
-    if (!userMessage) {
+    if (!messages || messages.length === 0) {
       return resp.text("What can I get for you today?");
     }
 
-    const result = await streamText({
-      model: anthropic("claude-3-5-sonnet-20241022"),
+    const result = streamText({
+      model: openai("gpt-4o-mini"),
       system: systemPrompt,
-      prompt: userMessage,
-      tools: {
-        showItem: {
-          description: "Display a menu item with image and details",
-          inputSchema: z.object({
-            name: z.string().describe("Item name"),
-            price: z.number().describe("Item price"),
-            description: z.string().optional().describe("Item description"),
-            category: z.string().describe("Menu category"),
-            modifications: z
-              .array(z.string())
-              .optional()
-              .describe("Customer requested modifications"),
-          }),
-          execute: async ({
-            name,
-            price,
-            description,
-            category,
-            modifications,
-          }) => {
-            return { name, price, description, category, modifications };
-          },
-        },
-
-        confirmOrder: {
-          description: "Show order confirmation with payment options",
-          inputSchema: z.object({
-            items: z.array(
-              z.object({
-                name: z.string(),
-                price: z.number(),
-                quantity: z.number(),
-                modifications: z.array(z.string()).optional(),
-              }),
-            ),
-            subtotal: z.number(),
-            tax: z.number(),
-            total: z.number(),
-            tableNumber: z.number(),
-          }),
-          execute: async ({ items, subtotal, tax, total, tableNumber }) => {
-            return { items, subtotal, tax, total, tableNumber };
-          },
-        },
-
-        addToCart: {
-          description: "Add item to cart (internal use)",
-          inputSchema: z.object({
-            name: z.string(),
-            price: z.number(),
-            quantity: z.number(),
-            modifications: z.array(z.string()).optional(),
-          }),
-          execute: async ({ name, price, quantity, modifications }) => {
-            return { name, price, quantity, modifications };
-          },
-        },
-      },
+      messages,
+      tools,
+      maxSteps: 5,
     });
 
     // Return the streaming response

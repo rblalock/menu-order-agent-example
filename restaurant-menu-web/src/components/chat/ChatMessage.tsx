@@ -1,9 +1,10 @@
 "use client";
 
 import { Message } from "ai";
-import { Bot, User } from "lucide-react";
+import { Palmtree, User } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
 
 interface ChatMessageProps {
   message: Message;
@@ -42,7 +43,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         {isUser ? (
           <User size={16} className="text-white" />
         ) : (
-          <Bot size={16} className="text-gray-600" />
+          <Palmtree size={16} className="text-gray-600" />
         )}
       </div>
       <div
@@ -52,7 +53,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : "bg-gray-100 text-gray-900"
         }`}
       >
-        <p className="whitespace-pre-wrap">{message.content}</p>
+        <ReactMarkdown className="prose prose-sm max-w-none">{message.content}</ReactMarkdown>
         
         {message.toolInvocations && message.toolInvocations.length > 0 && (
           <div className="space-y-2 mt-2">
@@ -77,11 +78,9 @@ function renderToolResult(toolInvocation: any) {
     case "showItem":
       return (
         <div className="bg-white rounded-lg overflow-hidden border border-gray-200">
-          <img 
-            src="https://via.placeholder.com/400x200/f3f4f6/9ca3af?text=Menu+Item"
-            alt={result.name}
-            className="w-full h-32 object-cover"
-          />
+          <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center">
+            <span className="text-2xl font-semibold text-gray-700">{result.name}</span>
+          </div>
           <div className="p-4">
             <h4 className="font-semibold text-lg">{result.name}</h4>
             <p className="text-xl font-bold text-green-600 mt-1">${result.price.toFixed(2)}</p>
@@ -186,10 +185,10 @@ function renderToolResult(toolInvocation: any) {
             
             <div className="pt-4 space-y-3">
               <button className="w-full bg-black text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
-                <svg className="w-5 h-5" viewBox="0 0 50 20">
-                  <path fill="white" d="M9.5 3.5a2.5 2.5 0 0 1 2-2.45V.5A3 3 0 0 0 8.5 3.5v1a3 3 0 0 0 3 3h1a2.5 2.5 0 0 1 0 5h-1a2.5 2.5 0 0 1-2.5-2.5v-.5h-.5v.5a3 3 0 0 0 3 3h1a3 3 0 0 0 0-6h-1a2.5 2.5 0 0 1-2.5-2.5v-1z"/>
+                <svg className="w-12 h-5" viewBox="0 0 165.52 69.65">
+                  <path fill="white" d="M150.7 0h-135.9c-2.04 0-3.96.39-5.74 1.17s-3.33 1.89-4.64 3.23c-1.31 1.31-2.34 2.86-3.12 4.64s-1.16 3.66-1.16 5.66v40.2c0 2.04.39 3.96 1.16 5.74s1.81 3.33 3.12 4.64c1.31 1.35 2.86 2.38 4.64 3.16s3.7 1.17 5.74 1.17h135.9c2.04 0 3.96-.39 5.74-1.17s3.33-1.81 4.64-3.16c1.35-1.31 2.38-2.86 3.16-4.64s1.17-3.7 1.17-5.74v-40.2c0-2-.39-3.88-1.17-5.66s-1.81-3.33-3.16-4.64c-1.31-1.34-2.86-2.45-4.64-3.23s-3.7-1.17-5.74-1.17zm-109.3 44.51c0-2.94.65-5.51 1.92-7.68s2.96-3.88 5.08-5.12c2.08-1.2 4.37-1.81 6.86-1.81s4.78.6 6.86 1.81c2.12 1.24 3.81 2.94 5.08 5.12s1.92 4.74 1.92 7.68-.65 5.51-1.92 7.68-2.96 3.88-5.08 5.12c-2.08 1.2-4.37 1.81-6.86 1.81s-4.78-.6-6.86-1.81c-2.12-1.24-3.81-2.94-5.08-5.12s-1.92-4.74-1.92-7.68zm30.25 0c0-2.94.65-5.51 1.92-7.68s2.96-3.88 5.08-5.12c2.08-1.2 4.37-1.81 6.86-1.81s4.78.6 6.86 1.81c2.12 1.24 3.81 2.94 5.08 5.12s1.92 4.74 1.92 7.68-.65 5.51-1.92 7.68-2.96 3.88-5.08 5.12c-2.08 1.2-4.37 1.81-6.86 1.81s-4.78-.6-6.86-1.81c-2.12-1.24-3.81-2.94-5.08-5.12s-1.92-4.74-1.92-7.68z"/>
                 </svg>
-                Pay
+                Apple Pay
               </button>
               
               <button className="w-full bg-gray-100 text-gray-800 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors">
