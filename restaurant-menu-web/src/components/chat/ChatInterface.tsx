@@ -1,9 +1,9 @@
 "use client";
 
 import { useChat } from "ai/react";
-import { X, Send } from "lucide-react";
+import { X, Send, Loader2 } from "lucide-react";
 import ChatMessage from "./ChatMessage";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ChatInterfaceProps {
   isOpen: boolean;
@@ -12,6 +12,16 @@ interface ChatInterfaceProps {
 
 export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  
+  const loadingMessages = [
+    "Checking our menu...",
+    "Finding the perfect items...",
+    "Preparing your options...",
+    "Getting that ready for you...",
+    "Looking through our kitchen..."
+  ];
+  
   const {
     messages,
     input,
@@ -32,6 +42,15 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+  
+  useEffect(() => {
+    if (isLoading) {
+      const interval = setInterval(() => {
+        setLoadingMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+      }, 2000);
+      return () => clearInterval(interval);
+    }
+  }, [isLoading, loadingMessages.length]);
 
   if (!isOpen) return null;
 
@@ -80,6 +99,16 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
                 }}
               />
             ))}
+            
+            {isLoading && (
+              <div className="flex items-center gap-2 text-gray-500 text-sm p-4">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="animate-pulse">
+                  {loadingMessages[loadingMessageIndex]}
+                </span>
+              </div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 
