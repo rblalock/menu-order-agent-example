@@ -84,7 +84,7 @@ export default function ChatMessage({ message, onQuickOrder }: ChatMessageProps)
 }
 
 function ToolResult({ toolInvocation, onQuickOrder }: { toolInvocation: any; onQuickOrder?: (text: string) => void }) {
-  const [isExpanded, setIsExpanded] = useState(toolInvocation.toolName === 'showCategory' ? false : true);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   
   if (!toolInvocation.result) return null;
