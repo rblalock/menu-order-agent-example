@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "ai/react";
-import { X, Send, Loader2 } from "lucide-react";
+import { X, Send, Loader2, Mic, MicOff } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 import { useEffect, useRef, useState } from "react";
 
@@ -13,6 +13,8 @@ interface ChatInterfaceProps {
 export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
   const loadingMessages = [
     "Checking our menu...",
@@ -46,6 +48,63 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
       return () => clearInterval(interval);
     }
   }, [isLoading, loadingMessages.length]);
+  
+  // Initialize speech recognition
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
+      const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = true;
+      recognitionRef.current.lang = 'en-US';
+      
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = Array.from(event.results)
+          .map((result: any) => result[0])
+          .map((result: any) => result.transcript)
+          .join('');
+          
+        handleInputChange({ target: { value: transcript } } as any);
+        
+        // If it's a final result, submit it
+        if (event.results[event.results.length - 1].isFinal) {
+          setTimeout(() => {
+            handleSubmit({ preventDefault: () => {} } as any);
+            setIsListening(false);
+          }, 100);
+        }
+      };
+      
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+      };
+      
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+    
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, [handleInputChange, handleSubmit]);
+  
+  const startListening = () => {
+    if (recognitionRef.current && !isListening) {
+      recognitionRef.current.start();
+      setIsListening(true);
+    }
+  };
+  
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -108,6 +167,20 @@ export default function ChatInterface({ isOpen, onClose }: ChatInterfaceProps) {
               className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-white"
               disabled={isLoading}
             />
+            {recognitionRef.current && (
+              <button
+                type="button"
+                onClick={isListening ? stopListening : startListening}
+                disabled={isLoading}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  isListening 
+                    ? 'bg-red-600 text-white hover:bg-red-700 animate-pulse' 
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {isListening ? <MicOff size={20} /> : <Mic size={20} />}
+              </button>
+            )}
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
